@@ -9,6 +9,7 @@
   "author": "snehal singh",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "method-override": "^3.0.0",
     "mongoose": "^8.3.2"
