@@ -24,7 +24,7 @@ async function main() {
   app.use(express.urlencoded({ extended: true }));
   app.use(methodOverride("_method"));
 
-  
+  //root Route
   app.get("/", (req, res) => {
     res.send("Hi, I am root");
   });
