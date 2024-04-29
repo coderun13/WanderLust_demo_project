@@ -7,3 +7,10 @@ It is the process of verifying what specific applications,files,and data a user 
 Storing Password
 It has to be in hashed form.
 password ---> hasing function ---> hashed form
+
+ Hashing
+For every input there is a fixed output(fixed length)
+They are one-way function,we can't get input from output
+For a different input,there is a different output but of same length
+Small changes in input should bring large changes in output
+
