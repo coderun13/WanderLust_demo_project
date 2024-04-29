@@ -14,3 +14,5 @@ They are one-way function,we can't get input from output
 For a different input,there is a different output but of same length
 Small changes in input should bring large changes in output
 
+Salting
+technique to protect passwords stored in databases by adding a string of 32 or more characters and then hashing them.
