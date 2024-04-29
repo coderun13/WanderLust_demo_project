@@ -16,3 +16,10 @@ Small changes in input should bring large changes in output
 
 Salting
 technique to protect passwords stored in databases by adding a string of 32 or more characters and then hashing them.
+
+Passport
+express compartiable 
+middleware that help in authentication for node.js . 
+npm i passport
+npm i passport-local
+npm i passport-local-mongoose
