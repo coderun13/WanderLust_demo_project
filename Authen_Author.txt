@@ -3,3 +3,7 @@ It is the process of verifying who someone is
 
 Authorization
 It is the process of verifying what specific applications,files,and data a user has access to
+
+Storing Password
+It has to be in hashed form.
+password ---> hasing function ---> hashed form
