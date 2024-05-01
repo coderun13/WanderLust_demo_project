@@ -7,9 +7,13 @@ const methodOverride = require("method-override");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const Reviews = require("./models/review.js");
+
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
+
+//database connection
 main()
   .then(() => {
     console.log("connected to DB");
@@ -22,16 +26,20 @@ async function main() {
     await mongoose.connect(MONGO_URL);
   }
 
+  
+  //path setup
   app.set("view engine", "ejs");
   app.set("views", path.join(__dirname, "views"));
   app.use(express.urlencoded({ extended: true }));
   app.use(methodOverride("_method"));
+
 
   //root Route
   app.get("/", (req, res) => {
     res.send("Hi, I am root");
   });
   
+
   //passport
   app.use(passport.initialize());
   app.use(passport.session());
@@ -39,6 +47,7 @@ async function main() {
 
   passport.serializeUser(User.serializeUser()); //storing data of user
   passport.deserializeUser(User.deserializeUser()); //unstoring data of user
+
 
 //Index Route
 app.get("/listings", async (req, res) => {
@@ -93,6 +102,22 @@ app.delete("/listings/:id", async (req, res) => {
     res.redirect("/listings");
   });
   
+
+   //Reviews
+   //post route
+   app.post("/listings/:id/reviews", async (req,res) => {
+    let listing = await Listing.findById(req.params.id);
+    let newReview = new Review(req.body.review);
+
+    Listing.reviews.puah(newReview);
+
+    await newReview.save();
+    await listing.save();
+
+    console.log("new review saved");
+    res.send("new review saved");
+   });
+
 
  /*app.get("/testListing", async (req, res) => {
    let sampleListing = new Listing({
