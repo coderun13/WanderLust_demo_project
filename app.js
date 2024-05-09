@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
+const ejsmate = require("ejs-mate");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
@@ -32,6 +33,9 @@ async function main() {
   app.set("views", path.join(__dirname, "views"));
   app.use(express.urlencoded({ extended: true }));
   app.use(methodOverride("_method"));
+  app.engine('ejs',ejsMate);
+  app.use(express.static(path.join(_dirname, "/public")));
+
 
 
   //root Route
