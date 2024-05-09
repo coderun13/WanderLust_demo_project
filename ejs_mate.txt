@@ -1,0 +1,7 @@
+npm install ejs-mate ------->(installation)
+
+const ejsmate = require("ejs-mate"); ------->(requiring)
+
+Help to create different templates
+
+<% layout ('boilerplate') -%> (to change content in the boilerplate)
