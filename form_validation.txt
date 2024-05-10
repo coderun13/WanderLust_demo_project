@@ -3,9 +3,18 @@ client side ---> front side to back
 server side ---> db(according to schema)/error handling
 when data is entered in the form,the browser/web server will check to see that the data is in the correct format and within the constraints set by the application.
 
+ novalidate boolean 
+ (disable browser default validation and uses bootstrap validations)
 
+novalidate class="needs-validation"
+(added to form to use bootstrap validations)
 
+Success and Failure text
+validation satisfy----> Success text
+validation failed----> Failure text
 
+JOI (fucntion is to valiadate schema)
+npm install joi(npm package)(require joi)
+joi defines schema for server side 
 
-
-
+To use schema by joi as middleware make it as a fucntion
