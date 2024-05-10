@@ -4,7 +4,7 @@
   <div class="col-8 offset-2">
    
     <h3>Edit your Listing</h3>
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation">
 
       <div class="mb-3">
         <label for="title" 
@@ -13,15 +13,17 @@
         value="<%= listing.title %>"
          type="text" 
          class="form-control"
-         />
-        </div>
+         required/>
+         <div class="valid-feedback">"Title looks good!"</div>
+      </div>
 
       <div class="mb-3">
         <label for="description" 
         class="form-label">Add Description</label>
         <textarea name="listing[description]"
-        class="form-control"><%= listing.description %>
+        class="form-control" required><%= listing.description %>
         </textarea>
+        <div class="invalid-feedback">"Please enter a short description"</div>
       </div>
 
       <div class="mb-3">
@@ -31,7 +33,7 @@
         value="<%= listing.image %>" 
         type="text" 
         class="form-control" 
-        />
+        required/>
       </div>
 
       <div class="row">
@@ -43,17 +45,8 @@
         value="<%= listing.price %>" 
         type="number"
         class="form-control"
-        />
-      </div>
-
-      <div class="mb-3">
-        <label for="title" 
-        class="form-label">Title</label>
-        <input name="listing[image]" 
-        value="<%= listing.image %>" 
-        type="text"
-        class="form-control" 
-        />
+        required/>
+        <div class="invalid-feedback">"Price should be valid"</div>
       </div>
 
       <div class="mb-3 col-md-8">
@@ -64,7 +57,8 @@
         value="<%= listing.country %>"
         type="text"
         class="form-control"
-      />
+      required/>
+      <div class="invalid-feedback">"Country name should be valid"</div>
       </div>
     </div>
 
@@ -76,7 +70,8 @@
         value="<%= listing.location %>"
         type="text"
         class="form-control"
-        />
+        required/>
+        <div class="invalid-feedback">"Location should be valid"</div>
       </div>
 
       <button class="btn btn-dark edit-btn mt-3">Edit</button>
@@ -84,4 +79,4 @@
 
   </div>
 </div>
-
+<script src="/js/script.js"
