@@ -105,3 +105,17 @@ color: #222222;
     background-color:  rgb(231, 61, 61) !important;
     border: none !important;
 }
+
+/*Show page*/
+.show-img{
+    height: 30vh;
+}
+
+.btns{
+    display: flex;
+}
+
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}
