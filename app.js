@@ -8,9 +8,9 @@ const ejsmate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const {listingSchema} = require("./schema.js");
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
-const User = require("./models/user.js");
+// const passport = require("passport");
+// const LocalStrategy = require("passport-local");
+// const user = require("./models/user.js");
 const Reviews = require("./models/review.js");
 
 
@@ -36,8 +36,8 @@ async function main() {
   app.set("views", path.join(__dirname, "views"));
   app.use(express.urlencoded({ extended: true }));
   app.use(methodOverride("_method"));
-  app.engine('ejs',ejsMate);
-  app.use(express.static(path.join(_dirname, "/public")));
+  app.engine("ejs",ejsmate);
+  app.use(express.static(path.join(__dirname, "/public")));
 
 
 
@@ -59,13 +59,13 @@ async function main() {
   };
 
 
-  //passport
-  app.use(passport.initialize());
-  app.use(passport.session());
-  passport.use(new LocalStrategy(User.authenticate()));
+// //   //passport
+// //   // app.use(passport.initialize());
+// //   // app.use(passport.session());
+// //   // passport.use(new LocalStrategy(user.authenticate()));
 
-  passport.serializeUser(User.serializeUser()); //storing data of user
-  passport.deserializeUser(User.deserializeUser()); //unstoring data of user
+// //   // passport.serializeUser(user.serializeUser()); //storing data of user
+// //   // passport.deserializeUser(user.deserializeUser()); //unstoring data of user
 
 
 //Index Route
@@ -146,36 +146,36 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
 );
   
 
-   //Reviews
-   //post route
-   app.post("/listings/:id/reviews", wrapAsync(async (req,res) => {
-    let listing = await Listing.findById(req.params.id);
-    let newReview = new Review(req.body.review);
+//    //Reviews
+//    //post route
+//    app.post("/listings/:id/reviews", wrapAsync(async (req,res) => {
+//     let listing = await Listing.findById(req.params.id);
+//     let newReview = new Review(req.body.review);
 
-    Listing.reviews.puah(newReview);
+//     Listing.reviews.puah(newReview);
 
-    await newReview.save();
-    await listing.save();
+//     await newReview.save();
+//     await listing.save();
 
-    console.log("new review saved");
-    res.send("new review saved");
-   })
-  );
+//     console.log("new review saved");
+//     res.send("new review saved");
+//    })
+//   );
 
 
- /*app.get("/testListing", async (req, res) => {
-   let sampleListing = new Listing({
-     title: "My New Villa",
-     description: "By the beach",
-     price: 1200,
-     location: "Calangute, Goa",
-     country: "India",
-   });
+//  app.get("/testListing", async (req, res) => {
+//    let sampleListing = new Listing({
+//      title: "My New Villa",
+//      description: "By the beach",
+//      price: 1200,
+//      location: "Calangute, Goa",
+//      country: "India",
+//    });
 
-   await sampleListing.save();
-   console.log("sample was saved");
-   res.send("successful testing");
- });*/
+//    await sampleListing.save();
+//    console.log("sample was saved");
+//    res.send("successful testing");
+//  });
 
 app.all("*", (req,res,next)=>{
   next(new ExpressError(404,"Page not found!"));
