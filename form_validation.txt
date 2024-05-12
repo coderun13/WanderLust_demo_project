@@ -18,3 +18,9 @@ npm install joi(npm package)(require joi)
 joi defines schema for server side 
 
 To use schema by joi as middleware make it as a fucntion
+
+
+Validation for Reviews
+Joi schema
+schema validate function
+use as middleware
