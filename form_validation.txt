@@ -24,3 +24,7 @@ Validation for Reviews
 Joi schema
 schema validate function
 use as middleware
+
+Deleteing Reviews
+use Mongo $pull operator
+(removes from an existing array all instances of a values that match a specified condition)
