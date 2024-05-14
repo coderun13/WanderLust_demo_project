@@ -7,11 +7,12 @@ const methodOverride = require("method-override");
 const ejsmate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const Reviews = require("./models/review.js");
 const {listingSchema,reviewSchema} = require("./schema.js");
 // const passport = require("passport");
 // const LocalStrategy = require("passport-local");
 // const user = require("./models/user.js");
-const Reviews = require("./models/review.js");
+
 
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust"; //mongodb setup
@@ -178,7 +179,7 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
     //Delete Review Route
     app.delete("/listings/:id/reviews/:reviewId",
      wrapAsync(async (req,res) => {
-      let { id,reviewId } = req.params;
+      let { id, reviewId } = req.params;
 
       await Listing.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
 
