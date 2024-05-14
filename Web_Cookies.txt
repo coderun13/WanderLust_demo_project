@@ -1,0 +1,17 @@
+HTTP cookies
+They are small blocks of data created by a web server while a user is browsing a website and placed on the user's computer or other device by the user's web browser.
+
+Uses
+Session Management - data on browser before saving it to database.
+Personalization - 
+Tracking - About interests about sites,pages etc.
+
+Sending cookies
+in Express
+
+Example
+app.get("/getcookies", (req,res)=>{
+    res.cookie("greet","Hello"); (value,name)
+    ressend("sent some cookies!");
+});
+
