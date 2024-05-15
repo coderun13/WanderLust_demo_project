@@ -12,6 +12,30 @@ in Express
 Example
 app.get("/getcookies", (req,res)=>{
     res.cookie("greet","Hello"); (value,name)
-    ressend("sent some cookies!");
+    res.send("sent some cookies!");
 });
 
+Cookies Parser(to read cookies)
+cookie parser middleware
+npm i cookie-parser
+
+app.use(cookieParser());
+
+Signed Cookies
+(protecting intensional change in cookie)
+(sealed cookie)
+(The recieved cookie is same as the sent one)
+
+Send Signed cookies
+example-
+app.use(cookieParser("secretcode"));
+app.get("/getsignedcookie",(req,res)=>{
+    res.cookie("color","red",{ signed: true });
+    res.send("done");
+});
+
+Verify Signed cookie
+
+app.get("/verify",(req,res)=>{
+    res.send(req.signedCookies);
+});
