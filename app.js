@@ -5,9 +5,9 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsmate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
-// const passport = require("passport");
-// const LocalStrategy = require("passport-local");
-// const user = require("./models/user.js");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const user = require("./models/user.js");
 
 
 //require routes
@@ -48,41 +48,63 @@ async function main() {
   });
 
 
+ //session
+
+
+
+
+ //passport
+  app.use(passport.initialize());
+  app.use(passport.session());
+  passport.use(new LocalStrategy(user.authenticate()));
+
+  passport.serializeUser(user.serializeUser()); //storing data of user
+  passport.deserializeUser(user.deserializeUser()); //unstoring data of user
+
+
+ //flash
+
+
+
+
+
+
+
+//demo user
+
+
+
+
+
+
+
   //routes
   app.use("/listings",listings);
   app.use("/listings/:id/reviews",reviews);
 
 
-  //passport
-  // app.use(passport.initialize());
-  // app.use(passport.session());
-  // passport.use(new LocalStrategy(user.authenticate()));
 
-  // passport.serializeUser(user.serializeUser()); //storing data of user
-  // passport.deserializeUser(user.deserializeUser()); //unstoring data of user
+ //sample data to test
+ //  app.get("/testListing", async (req, res) => {
+ //    let sampleListing = new Listing({
+ //      title: "My New Villa",
+ //      description: "By the beach",
+ //      price: 1200,
+ //      location: "Calangute, Goa",
+ //      country: "India",
+ //    });
 
-
-//sample data to test
-//  app.get("/testListing", async (req, res) => {
-//    let sampleListing = new Listing({
-//      title: "My New Villa",
-//      description: "By the beach",
-//      price: 1200,
-//      location: "Calangute, Goa",
-//      country: "India",
-//    });
-
-//    await sampleListing.save();
-//    console.log("sample was saved");
-//    res.send("successful testing");
-//  });
+ //    await sampleListing.save();
+ //    console.log("sample was saved");
+ //    res.send("successful testing");
+ //  });
 
 
 
-//error handling for invalid routes
-app.all("*", (req,res,next)=>{
+  //error handling for invalid routes
+  app.all("*", (req,res,next)=>{
   next(new ExpressError(404,"Page not found!"));
-});
+  });
 
 
  //custom error handling //express error handling
