@@ -1,0 +1,9 @@
+Express Router
+Way to organise your express application such that our primary app.js file does not become bloated.
+
+(creates new router object)
+const router = express.Router()
+
+Restructing Reviews
+merge params(it preserve the req.params values from the parent route.if parent and child name conflicting param names,the child's value take precedence)
+router = express.Router({mergeParams: true});
