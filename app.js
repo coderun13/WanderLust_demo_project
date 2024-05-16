@@ -6,6 +6,7 @@ const methodOverride = require("method-override");
 const ejsmate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const user = require("./models/user.js");
@@ -41,36 +42,6 @@ async function main() {
   app.use(methodOverride("_method"));
   app.engine("ejs",ejsmate);
   app.use(express.static(path.join(__dirname, "/public")));
-
-
-  //sessionOption  
-  const  sessionOptions = {
-    secret: "mysecretcode",
-    resave: false,
-    saveUninitialized: true
-};
-
-
-  //root Route
-  app.get("/", (req, res) => {
-    res.send("Hi, I am root");
-  });
-
-
- //session
-app.use(session(sessionOptions));
-
-
- //passport
-  app.use(passport.initialize());
-  app.use(passport.session());
-  passport.use(new LocalStrategy(user.authenticate()));
-
-  passport.serializeUser(user.serializeUser()); //storing data of user
-  passport.deserializeUser(user.deserializeUser()); //unstoring data of user
-
-
- //flash
 
 
 
