@@ -19,9 +19,9 @@ npm i express-session
 Work of Express seesion
 To save a data ----> use a temporary storage ----> with a session id ----> send to client's browser in form of cookie
 
-
-
-
+connect-flash
+special area of the session used for storing messages.Messages are written to the flash and cleared after being displayed to the user.
+Single time Apperaring messages.
 
 
 
