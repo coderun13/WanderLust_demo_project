@@ -89,6 +89,19 @@ router.put
 })
 );
 
+
+//Delete Route
+router.delete
+  ("/:id", wrapAsync(async (req, res) => {
+  let { id } = req.params;
+  let deletedListing = await Listing.findByIdAndDelete(id);
+  req.flash("success","Listing Deleted!");
+  console.log(deletedListing);
+  res.redirect("/listings");
+})
+);
+
+
  //error Handling
 
     // if(!req.body.listing){
