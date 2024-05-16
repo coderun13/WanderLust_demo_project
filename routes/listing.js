@@ -75,6 +75,20 @@ router.get
 
 
 
+//Update Route
+router.put
+  ("/:id",validatelisting,
+   wrapAsync(async (req, res) => {
+  // if(!req.body.listing){
+  //   throw new ExpressError(400,"Send valid data for listing");
+  // }
+  let { id } = req.params;
+  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  req.flash("success","Listing Updated!");
+  res.redirect(`/listings/${id}`);
+})
+);
+
  //error Handling
 
     // if(!req.body.listing){
