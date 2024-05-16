@@ -44,6 +44,32 @@ async function main() {
   app.use(express.static(path.join(__dirname, "/public")));
 
 
+  //sessionOption  
+  const  sessionOptions = {
+    secret: "mysecretcode",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      expires: Date.now() + 7 * 24 * 60 * 60 * 1000, //days*hrs*min*sec*millisec
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    },
+};
+
+
+  //root Route
+  app.get("/", (req, res) => {
+    res.send("Hi, I am root");
+  });
+
+
+ //session
+  app.use(session(sessionOptions));
+  app.use(flash());
+
+
+ 
+
 
 
 
