@@ -5,6 +5,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsmate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
+const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const user = require("./models/user.js");
@@ -15,7 +16,8 @@ const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust"; //mongodb setup
+//mongodb setup
+const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust"; 
 
 
 //database connection
@@ -41,6 +43,13 @@ async function main() {
   app.use(express.static(path.join(__dirname, "/public")));
 
 
+  //sessionOption  
+  const  sessionOptions = {
+    secret: "mysecretcode",
+    resave: false,
+    saveUninitialized: true
+};
+
 
   //root Route
   app.get("/", (req, res) => {
@@ -49,8 +58,7 @@ async function main() {
 
 
  //session
-
-
+app.use(session(sessionOptions));
 
 
  //passport
@@ -70,7 +78,7 @@ async function main() {
 
 
 
-//demo user
+ //demo user
 
 
 
@@ -85,20 +93,19 @@ async function main() {
 
 
  //sample data to test
- //  app.get("/testListing", async (req, res) => {
- //    let sampleListing = new Listing({
- //      title: "My New Villa",
- //      description: "By the beach",
- //      price: 1200,
- //      location: "Calangute, Goa",
- //      country: "India",
- //    });
+ /*  app.get("/testListing", async (req, res) => {
+   let sampleListing = new Listing({
+     title: "My New Villa",
+     description: "By the beach",
+     price: 1200,
+     location: "Calangute, Goa",
+     country: "India",
+   });
 
- //    await sampleListing.save();
- //    console.log("sample was saved");
- //    res.send("successful testing");
- //  });
-
+   await sampleListing.save();
+   console.log("sample was saved");
+   res.send("successful testing");
+ });*/
 
 
   //error handling for invalid routes
