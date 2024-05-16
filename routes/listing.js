@@ -59,6 +59,22 @@ router.get
 );
 
 
+  //Edit Route
+  router.get
+  ("/:id/edit", wrapAsync(async (req, res) => {
+  let { id } = req.params;
+  const listing = await Listing.findById(id);
+  if(!listing){
+    req.flash("error","Listing you requested for doest not exist!");
+    res.redirect("/listings");
+  }
+  req.flash("success","Listing Edited!");
+  res.render("listings/edit.ejs", { listing });
+})
+);
+
+
+
  //error Handling
 
     // if(!req.body.listing){
