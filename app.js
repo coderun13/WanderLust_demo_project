@@ -68,11 +68,21 @@ async function main() {
   app.use(flash());
 
 
- 
+ //passport
+ app.use(passport.initialize());
+ app.use(passport.session());
+ passport.use(new LocalStrategy(user.authenticate()));
+
+ passport.serializeUser(user.serializeUser()); //storing data of user
+ passport.deserializeUser(user.deserializeUser()); //unstoring data of user
 
 
-
-
+//flash
+ app.use((req,res,next)=>{
+   res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+   next();
+ });
 
 
  //demo user
