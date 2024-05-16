@@ -30,24 +30,11 @@ const validateReview = (req,res,next)=>{
     await newReview.save();
     await listing.save();
 
+    req.flash("success","New Review created!");
+
   res.redirect(`/listings/${listing._id}`); 
    })
   );
-
-
-    //Delete Route
-   router.delete
-   ("/:reviewId",
-     wrapAsync(async (req,res) => {
-      let { id, reviewId } = req.params;
-
-      await Listing.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
-
-      await Reviews.findByIdAndDelete(reviewId);
-    
-     res.redirect(`/listings/${id}`); 
-     })
-    );
 
 
 module.exports = router;
