@@ -31,3 +31,12 @@ passport.session()
 response and request ny same user from page to page
 
 passport.use(newLocalStrategy(User.authenticate()))
+
+Connecting Login Route
+req.isAuthenticated() 
+(passport method)
+
+req.user(value)
+undefined value --> not logged in [signup,login option]
+object ---> logged in [log out option]
+
