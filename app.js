@@ -86,7 +86,16 @@ async function main() {
  });
 
 
+ //demo user
+ app.get("demouser", async(req,res)=>{
+  let fakeUser = new user({
+    email: "demo@gmail.com",
+    username: "new-student", //hashing algorithm - pbkdf2
+  });
 
+  let registeredUser = await user.register(fakeUser, "helloworld"); // register is a method to register new user, //password --> helloworld
+  res.send(registeredUser);
+});
 
 
   //routes
