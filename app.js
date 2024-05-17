@@ -78,10 +78,11 @@ async function main() {
   passport.deserializeUser(user.deserializeUser()); //unstoring data of user
 
 
-  //flash
+  //local response
   app.use((req,res,next)=>{
    res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
    next();
   });
 
