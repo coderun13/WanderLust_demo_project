@@ -16,14 +16,9 @@ Express Sessions
 An attempt to make our session Stateful
 npm i express-session
 
-Work of Express seesion
+Work of Express session
 To save a data ----> use a temporary storage ----> with a session id ----> send to client's browser in form of cookie
 
 connect-flash
 special area of the session used for storing messages.Messages are written to the flash and cleared after being displayed to the user.
 Single time Apperaring messages.
-
-
-
-
-
