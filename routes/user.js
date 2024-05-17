@@ -31,7 +31,17 @@ router.get("/login",(req,res)=>{
 });
 
 
-
+router.post(
+    "/login", 
+      passport.authenticate("local",
+      { failureRedirect: '/login', 
+      failureFlash: true
+   }),
+      async(req,res)=>{
+          req.flash("success","Welcome back to WanderLust!");
+          res.redirect("/listings");
+      }
+  );
 
 
 module.exports = router;
