@@ -55,7 +55,7 @@ async function main() {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     },
-};
+  };
 
 
   //root Route
@@ -64,38 +64,26 @@ async function main() {
   });
 
 
- //session
+  //session
   app.use(session(sessionOptions));
   app.use(flash());
 
 
- //passport
- app.use(passport.initialize());
- app.use(passport.session());
- passport.use(new LocalStrategy(user.authenticate()));
+  //passport
+  app.use(passport.initialize());
+  app.use(passport.session());
+  passport.use(new LocalStrategy(user.authenticate()));
 
- passport.serializeUser(user.serializeUser()); //storing data of user
- passport.deserializeUser(user.deserializeUser()); //unstoring data of user
+  passport.serializeUser(user.serializeUser()); //storing data of user
+  passport.deserializeUser(user.deserializeUser()); //unstoring data of user
 
 
-//flash
- app.use((req,res,next)=>{
+  //flash
+  app.use((req,res,next)=>{
    res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
    next();
- });
-
-
- //demo user
- app.get("demouser", async(req,res)=>{
-  let fakeUser = new user({
-    email: "demo@gmail.com",
-    username: "new-student", //hashing algorithm - pbkdf2
   });
-
-  let registeredUser = await user.register(fakeUser, "helloworld"); // register is a method to register new user, //password --> helloworld
-  res.send(registeredUser);
-});
 
 
   //routes
@@ -104,7 +92,36 @@ async function main() {
   app.use("/",userRouter);
 
 
- //sample data to test
+  //error handling for invalid routes
+  app.all("*", (req,res,next)=>{
+   next(new ExpressError(404,"Page not found!"));
+  });
+
+
+ //custom error handling //express error handling
+  app.use((err,req,res,next)=>{
+    let{statusCode=500, message= "somthing went wrong!"}= err;
+    res.status(statusCode).render("../views/listings/error.ejs",{ message });
+    // res.status(statusCode).send(message);
+    //res.send("something went wrong!");
+  });
+
+
+ //demo user
+ /*app.get("demouser", async(req,res)=>{
+  let fakeUser = new user({
+    email: "demo@gmail.com",
+    username: "new-student", //hashing algorithm - pbkdf2
+  });
+
+  let registeredUser = await user.register(fakeUser, "helloworld"); 
+  register is a method to register new user, 
+  password --> helloworld
+  res.send(registeredUser);
+});*/
+
+
+  //sample data to test
  /*  app.get("/testListing", async (req, res) => {
    let sampleListing = new Listing({
      title: "My New Villa",
@@ -118,21 +135,6 @@ async function main() {
    console.log("sample was saved");
    res.send("successful testing");
  });*/
-
-
-  //error handling for invalid routes
-  app.all("*", (req,res,next)=>{
-  next(new ExpressError(404,"Page not found!"));
-  });
-
-
- //custom error handling //express error handling
- app.use((err,req,res,next)=>{
-  let{statusCode=500, message= "somthing went wrong!"}= err;
-  res.status(statusCode).render("../views/listings/error.ejs",{ message });
- // res.status(statusCode).send(message);
-  //res.send("something went wrong!");
- });
 
 
  //port setup
