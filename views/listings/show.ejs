@@ -26,8 +26,10 @@
     <br />
 
 
+    <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
     <div class="btns">
-      <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">
+      <a href="/listings/<%= listing._id %>/edit" 
+        class="btn btn-dark col-1 offset-3 edit-btn">
         Edit </a>
 
       <form method="POST" action="/listings/<%=listing._id %>?_method=DELETE">
@@ -36,11 +38,11 @@
       </form>
     </div>
 </div>
-
+     <% } %>
     
     <div class="col-8 offset-3 mb-3">
       <hr/>
-    
+    <% if(currUser) { %>
       <h4>Leave a Review</h4>
     
       <form action="/listings/<%=listing._id%>/reviews" method="POST" 
@@ -56,7 +58,22 @@
           name="review[rating]"
           class="form-range"/>
         </div>
-    
+
+        <!-- <fieldset class="starability-basic">
+          <legend>First rating:</legend>
+          <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+          <input type="radio" id="first-rate1" name="rating" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="rating" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="rating" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="rating" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="rating" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+     -->
         <div class = "mb-3 mt-3">
         <label for="comment" class="form-label">Comments</label>
       <textarea
@@ -71,6 +88,7 @@
     </div>
     <button class="btn btn-outline-dark">SUBMIT</button>
   </form>
+  <% } %>
 
 </hr>
 <p><b>All Reviews</b></p>
@@ -79,7 +97,7 @@
 <% for(review of listing.reviews) { %>
   <div class="card col-5 ms-3 mb-3">
     <div class="card-body"> 
-      <h5 class="card-title">aryan</h5>
+      <h5 class="card-title">@<%= review.author.username %></h5>
       <p class="card-text"><%= review.comment %></p>
       <p class="card-text"><%= review.rating %>stars</p>
   </div>
